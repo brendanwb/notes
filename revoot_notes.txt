@@ -1,0 +1,21 @@
+Revoot_Notes
+
+Creating Movies
+  Generate the movie model
+  Add some tests for the model
+  Add some tests for the user model associations with the new model
+  Change the code in each model to make the tests pass
+  Generate the movie_tracker model
+  Add some tests for the model
+  Add some tests for the user model associations with the new model
+  Change the code in each model to make the tests pass
+  Generate movie controller
+  Add some tests for the controller
+  Create the necessary views for the Movie index and show pages
+  Create the following actions in the User model
+  Test for the following actions in the User model
+  Add Movie info to both the index and show views
+  Add the necessary follow/unfollow partials, code to the views
+  Create a Movie_Trackers controller
+  Add tests for the new controller
+  Update the routes to include the new create and destroy paths only

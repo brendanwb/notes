@@ -1,0 +1,126 @@
+MicroClearFix - Use this instead of clear to fix float sizing issues
+------------------------------------------------------------------------------
+/**
+ * For modern browsers
+ * 1. The space content is one way to avoid an Opera bug when the
+ *    contenteditable attribute is included anywhere else in the document.
+ *    Otherwise it causes space to appear at the top and bottom of elements
+ *    that are clearfixed.
+ * 2. The use of `table` rather than `block` is only necessary if using
+ *    `:before` to contain the top-margins of child elements.
+ */
+.cf:before,
+.cf:after {
+    content: " "; /* 1 */
+    display: table; /* 2 */
+}
+
+.cf:after {
+    clear: both;
+}
+
+/**
+ * For IE 6/7 only
+ * Include this rule to trigger hasLayout and contain floats.
+ */
+.cf {
+    *zoom: 1;
+}
+------------------------------------------------------------------------------
+
+Box-Sizing - this will remove extra witdh and height added by padding and borders
+------------------------------------------------------------------------------
+  box-sizing: border-box;
+------------------------------------------------------------------------------
+
+Background Properties
+------------------------------------------------------------------------------
+  background-image: url('img/image_name.ext') no-repeat;
+  background-repeat: no-repeat, repeat-y, repeat-x;
+  background-position: vertical horizontal ie: left center
+  background-attachment: fixed local
+  background-size:
+  background-clip:
+  background-origin:
+------------------------------------------------------------------------------
+
+Border-Radius
+------------------------------------------------------------------------------
+  border-radius: horizontal 10% 100px / vertical 50% 20px
+------------------------------------------------------------------------------
+
+Box-Shadow
+------------------------------------------------------------------------------
+  box-shadow: x-offset y-offset blur-radius spread-radius color
+------------------------------------------------------------------------------
+
+Border-Images
+------------------------------------------------------------------------------
+  
+------------------------------------------------------------------------------
+
+Linear-Gradients
+------------------------------------------------------------------------------
+  background: 
+------------------------------------------------------------------------------
+
+--Responsive Design Principles--
+------------------------------------------------------------------------------
+------------------------------------------------------------------------------
+
+Converting PX to EM & % for Fluid Layouts
+------------------------------------------------------------------------------
+  Conversion Formula
+  -Convert pixels to ems or % using the formula target ÷ context = result
+
+  Converting PX to EMs
+  -Use the default browser font size of 16px as the context unless otherwise 
+   specified.  This is for converting text.
+
+  Converting Nested PX to EMs
+  -Use the font size of the parent element in pixels as your context
+  
+  Converting PX to %
+  -Carry the decimal of your result over two places to the right to get your 
+   percentage
+
+  -Do not round up your percentages, no matter how ugly or long the decimal 
+   is!
+
+  Creating Flexible Margins
+  -"When setting flexible margins on an element, your context is the width 
+   of the element’s container." Ethan Marcotte
+
+  Scalable Images
+  -For modern browsers, add "max-width: 100%" to images so they scale down 
+   to fit within their containing element in a fluid layout.
+  -For IE6 & IE7, create an IE specific stylesheet and apply a width of 100% 
+   to images using their unique ID or class.
+
+  Fixed, Fluid, Adaptive, and Responsive
+  -Fixed websites have a set width and resizing the browser or viewing it on 
+   different devices won’t affect on the way the website looks.
+
+  -Fluid websites are built using percentages for widths. As a result, columns 
+   are relative to one another and the browser allowing it to scale up and 
+   down fluidly.
+
+  -Adaptive websites introduce media queries to target specific device sizes, 
+   like smaller monitors, tablets, and mobile.
+
+  -Responsive websites are built on a fluid grid and use media queries to 
+   control the design and its content as it scales down or up with the browser 
+   or device.
+
+------------------------------------------------------------------------------
+Advanced Techniques
+------------------------------------------------------------------------------
+  Viewport Sized Typography & FitText.js
+  Flexible Videos with FitVids.js
+  WorkFlow
+   1. Wireframing
+   2. Moodboards - Style Tiles http://styletil.es
+   3. Code - Progressive Enhancement - start with the mobile layout and build 
+             up to the tablet and desktop versions.
+             A Book Apart, Mobile First - book about this technique
+------------------------------------------------------------------------------

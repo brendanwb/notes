@@ -1,0 +1,10 @@
+Team Treehouse Code Challenge's with Errors
+
+Link--
+http://teamtreehouse.com/library/programming/advanced-social-features-in-ruby-on-rails/uploading-files/using-paperclip
+Answer--
+has_attached_file :attachment
+
+Link--
+http://teamtreehouse.com/library/programming/building-social-features-in-ruby-on-rails/using-ajax/controller-formats
+Answer--

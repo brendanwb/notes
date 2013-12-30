@@ -1,0 +1,296 @@
+-----------------------------------------------------------------------
+- RAILS NOTES  --------------------------------------------------------
+-----------------------------------------------------------------------
+- Generate new app
+-----------------------------------------------------------------------
+  Generate a new app without Test::Unit
+    $ rails new app_name --skip-test-unit
+  Update Gemfile to include latest version of rspec-rails and capybara
+  Run the bundler to include all the new gems
+    $ bundle install --without production
+  Setup Rails to use RSpec for testing
+    $ rails generate rspec:install
+  Initialize the git repository
+    $ git init
+    $ git add .
+    $ git commit -m "Initial commit" 
+
+-----------------------------------------------------------------------
+- Generate a Controller
+-----------------------------------------------------------------------
+  *** Controllers use Plural Names ***
+  $ rails generate controller FooBar page1 page2 --no-test-framework <if you want to add your own tests>
+  $ rails generate controller StaticPages home about
+
+  # Destroy a controller
+    $ rails destroy controller FooBar home about
+
+-----------------------------------------------------------------------
+- Generate a Model
+-----------------------------------------------------------------------
+  *** Models use singular Names ***
+  $ rails generate model ModelName field1:string field2:string
+  $ rails generate model TVShow tvdb_id:string name:string year:integer network:string genre:string
+
+  # Destroy a model
+    $ rails destroy model ModelName
+
+-----------------------------------------------------------------------
+- Association Methods
+-----------------------------------------------------------------------
+  belongs_to Associations
+  -----------------------
+  -episode_tracker.user     - returns the user for the given episode_tracker
+  -episode_tracker.episode  - returns the episode for the given episode_tracker
+  -episode.tv_show       - returns the tv_show for the given episode
+
+  has_many Associations
+  ----------------------
+  -user.episode_trackers        - returns an array of all the episode_trackers in the database for the user
+  -user.episodes             - returns an array of all the episodes in the database for the user
+  -episode.episode_trackers     - returns an array of all the episode_trackers for the given episode
+  -episode.users             - returns an array of all the users in the database for the episode
+  -tv_show.episodes          - returns an array of all the episodes for the given tv_show
+  -user.episode_trackers.create - creates a episode_tracker(user_id = user_id)
+  -episode.episode_trackers.create - creates a episode_tracker(episode_id = episode_id)
+  -tv_show.episodes.create   - creates an episode(tv_show_id = tv_show_id)
+  -user.episode_trackers.where(episode_id:episode.id).first  - returns the show tracker with the matching user_id and episode_id
+  -tv_show.episodes.where(season_num:"2")  - returns an array of all the episodes of a tv_show where season_num is 2
+
+  has_and_belongs_to_many Associations
+  ------------------------------------
+  -user.tv_shows
+  -tv_show.users
+
+  # Remember you must create a join table on your own to get this Association to work
+  # Be sure to include :id => false in the create table line in the migration
+
+-----------------------------------------------------------------------
+- Steps to track TV show watching in database
+-----------------------------------------------------------------------
+  -user = User.find_by_id(user_id)  - grab the current user from the db
+  -episode = Episode.find_by_id(episode) - grab the show from the db
+  -user.episode_trackers.create(episode_id: episode.id,watched:1) - create a show tracker the takes the user.id and the tv_show.id and determines watched as true or false
+  ----------------------------------
+  Change the watched status  
+  ----------------------------------
+  -user = User.find_by_id(user_id)  - grab the current user from the db
+  -episode = Episode.find_by_id(episode_id) - grab the show from the db
+  -tracker = user.episode_trackers.where(episode_id: episode.id).first
+  -tracker.watched=true
+
+-----------------------------------------------------------------------
+- Database Migrations
+-----------------------------------------------------------------------
+  ----------------------------------
+  Generate a new db Migration
+  ----------------------------------
+  $ rails generate migration NameofTheMigration new_field:type
+
+  --------------------------------------------------------
+  Migrate the database based on the latest migration file
+  --------------------------------------------------------
+  $ bundle exec rake db:migrate
+  $ bundle exec rake db:test:prepare
+
+  -------------------------------------------------------------------------
+  Reset the database.  This resets to the latest database schema.rb config
+  -------------------------------------------------------------------------
+  $ bundle exec rake db:reset
+
+  Remove the db schema from the schema.rb file and change the define(:version =>) to the last migration file before the one you want to change
+
+  --------------------------------------------------
+  Populate the database with fake data to test with
+  --------------------------------------------------
+  $ bundle exec rake db:populate
+  it uses the file in lib/tasks/sample_data.rake and the gem faker
+
+  ------------------------------
+  Rollback a single migration
+  ------------------------------
+  $ rake db:rollback
+
+  ----------------------------
+  Rollback to the beginning
+  ----------------------------
+  $ rake db:migrate VERSION=0
+
+-----------------------------------------------------------------------
+- View Render Methods
+-----------------------------------------------------------------------
+  If you want to render a partial with a controller name from a folder other than view/controller_name use the convention below
+  <%= render :partial => 'episode_tracker', :collection => @episode_trackers %>
+
+  If using render instead of redirect_to, and you are displaying an error flash
+  use flash.now instead of flash so the render counts as the first view and the
+  message will disapper after the next page click.
+
+
+
+
+-----------------------------------------------------------------------
+- Add User Confirmation Steps
+-----------------------------------------------------------------------
+  First we need to add some tests to our user_spec.rb
+
+  We want to test that the model responds to the new fields we plan to add to our database
+
+  Add the following:
+
+  it { should respond_to(:confirmation_token) }
+  it { should respond_to(:confirmation_token_sent) }
+  it { should respond_to(:confirmed) }
+
+  As you can see from the tests, we will be adding three new fields.  Lets create a 
+  new migration to add them and get our tests to pass.
+
+  rails g migration add_confirmation_to_users confirmation_token:string confirmation_token_sent:datetime confirmed:boolean
+
+  output
+      invoke  active_record
+      create    db/migrate/20130123200956_add_confirmation_to_users.rb
+  NOTE:  The number before add_confirmation_to_user.rb will be different for everyone
+
+  Next we need to update the model with our new migration.  Open the newly created migration
+  file and make sure it looks like this
+
+  class AddConfirmationToUsers < ActiveRecord::Migration
+    def change
+      add_column :users, :confirmation_token, :string
+      add_column :users, :confirmation_token_sent, :datetime
+      add_column :users, :confirmed, :boolean, default: false
+    end
+  end
+
+  As you can see, we have added a default of false to our confirmed field.  Make sure you add
+  that before running your migration.
+
+  Now, once you are ready lets update the model by running
+  rake db:migrate
+  rake db:test:prepare
+
+  Once the migrations are complete, go ahead and confirm that your tests are now working
+  by running rspec spec/
+
+  With your migrations run, it's now time to update the model.  Open your models/user.rb
+  The way we want this to work, is when the user signs up, we send them an email with a link
+  to confirm that they signed up.  When they click on the link, their account should be confirmed
+  Let's start by adding a send_confirmation_email method.
+
+  def send_confirmation_email
+    create_remember_token(:confirmation_token)
+    self.confirmation_token_sent_at = Time.zone.now
+    save!
+    UserMailer.confirmation_email(self).deliver
+  end
+
+  Here, we are using our create_remember_token method to fill in our confirmation_token field
+  Next, we set our confirmation_token_sent field to the date and time the user signed up for an
+  account.  Once we have saved the updates to the user in the database, we will call the UserMailer
+  function confirmation_email on self to send the confirmation.  Next we will add the confirmation_email
+  method to our UserMailer Controller, and write some tests for it.
+
+  Let's start by adding the following tests to our user_mailer_spec.rb
+
+  describe "confirmation_email" do
+    let(:user) { FactoryGirl.create(:user) }
+    let(:mail) { UserMailer.confirmation_email(user) }
+
+    it "renders the headers" do
+      mail.subject.should eq("Account Confirmation")
+      mail.to.should eq([user.email])
+      mail.from.should eq(["from@example.com"])
+    end
+
+    it "renders the body" do
+      # mail.body.encoded.should match("Hi")
+    end
+  end
+
+  Now, to get the tests to pass, we need to add the confirmation_email method to our
+  UserMailer Controller.  That should look like
+
+  def confirmation_email(user)
+    @user = user
+
+    mail to: user.email, subject: "Account Confirmation"
+  end
+
+  This will send an email with the subject Account Confirmation to the users email
+
+  Now we need to add a template for the email we will be sending that is located at
+  views/user_mailer/confirmation_email.text.erb.  The template should have some text
+  and then a link containing the confirmation_token like this
+
+  To confirm your account, click the URL below.
+
+  <%= confirm_user_url(@user.confirmation_token) %>
+
+  If you did not create an account with us, please ignore this email and the account will terminate itself.
+
+  Next, we need to update the User Controller.  First, we need to modify our create
+  so that our email is sent when the user signs up for an account.  This should
+  be changed to look like the following:
+
+
+  def create
+    if signed_in?
+      redirect_to root_path
+    else
+      @user = User.new(params[:user])
+      if @user.save
+        @user.send_confirmation_email
+        @user.save!
+        sign_in @user
+        flash[:success] = "Welcome to Retail Geo!"
+        redirect_to profile_page_path(@user.name)
+      else
+        render 'new'
+      end
+    end
+  end
+
+  This creates a new user, if it is saved meaning all the fields were filled in 
+  properly, call the send_confirmation_email on @user variable, which updates
+  the confirmation_token, and confirmation_token_sent fields.  We then save the
+  user again for those updates, sign_in the user, display a success message, and 
+  redirect them to their new profile page.
+
+  The final piece of the puzzle is updating the users account when the recieve their
+  confirmation email and click on the included link.  To do that, we will need to
+  create a new method in the User controller called confirm, and add a new method in the User
+  model for activating the user.  The confirm method should match the
+  following
+
+  def confirm
+    @user = User.find_by_confirmation_token!(params[:confirmation_token])
+    if @user.confirmed?
+      flash[:error] = "This account has already been confirmed!"
+      redirect_to @user
+    else
+      @user.activate_user
+      sign_in @user
+      flash[:success] = "Your Account has been Confirmed!"
+      redirect_to @user
+    end
+  end
+
+  With the update, we are now able to accept two seperate urls.  First, we check to
+  see if the url contains a confirmation token.  If so, we make sure that token
+  exists in our model.  If it does, the user must have used their confirmation 
+  email to confirm their account, so we set the user variable based on the 
+  confirmation token as the id in the params.  We activate the user, which in the 
+  last step we will create that method in the User model, and we sign the user
+  in to their account with a success message that their account has been confirmed.
+ 
+  Last, we need to activate our user in the Model.  To do this, we add the method
+  activate_user in the User Model as follows.
+
+  def activate_user
+    self.toggle(:confirmed)
+    save!
+  end
+
+  Because the active field is boolean, we take advantage of the toggle function to
+  change the field from false to true, and then save the update.

@@ -1,0 +1,141 @@
+-----------------------------------------------------------------------
+- Javascript NOTES  ---------------------------------------------------
+-----------------------------------------------------------------------
+-Basics
+-----------------------------------------------------------------------
+ -Print the value to the console
+   console.log("Text");
+
+ -Prompts, alerts, confirms
+   confirm("You are cool?");
+   alert("I knew you were cool!");
+   prompt("What is your name?");
+
+ -Place a prompt response into a variable
+   var userName = prompt("What is your name?");
+
+ -To evaluate something as Is Not something else use !
+  !isOdd(x);
+
+ -Arrays
+  Splice will remove the selected items
+  ex array.splice(1,2) removes the 2nd and 3rd item
+
+  Slice will copy an array
+  ex a = array.slice() creates a copy of the existing array
+
+ -Random Numbers
+  Below will give you a random number between 0 and 10
+  Math.floor(Math.random() * 10 + 1)
+-----------------------------------------------------------------------
+-If/Else syntax
+-----------------------------------------------------------------------
+  if (boolean statement) {
+    // return if true
+  } else {
+    // return if false
+  }
+
+-----------------------------------------------------------------------
+-Ternary syntax
+-----------------------------------------------------------------------
+  x > y ? true : false;
+
+-----------------------------------------------------------------------
+-For Loop syntax
+-----------------------------------------------------------------------
+ for( var counter = 1; counter < 6; counter++ ) {
+     // repeat until counter reaches 6;
+ }
+
+-----------------------------------------------------------------------
+-For-In syntax
+-----------------------------------------------------------------------
+ for( var x in obj ) {
+    executeCode();
+ };
+
+-----------------------------------------------------------------------
+-Switch Case syntax
+-----------------------------------------------------------------------
+  switch (case) {
+
+    case "1":
+      result = 1;
+      break;
+
+    case "2":
+      result = 2;
+      break;
+
+    case "3":
+      result = 3;
+      break;
+
+    default:
+      result = "This does not match";
+  }
+
+-----------------------------------------------------------------------
+-While Loop syntax
+-----------------------------------------------------------------------
+ while (condition) {
+   executeCode;
+ };
+
+-----------------------------------------------------------------------
+-Do-While Loop syntax
+-----------------------------------------------------------------------
+  var i = 0;
+  do {
+    executCode;
+    i++;
+  }
+  while(condiiton);
+
+-----------------------------------------------------------------------
+-Recurssion syntax
+-----------------------------------------------------------------------
+  var obj = function(all,start,end) {
+    if (start >= end) {
+      return all[start];
+    } else {
+      return all[start] + obj(all,start+1,end);
+    }
+  };
+
+-----------------------------------------------------------------------
+-Declare variables
+-----------------------------------------------------------------------
+ var varName = "";
+
+-----------------------------------------------------------------------
+-Define a function
+-----------------------------------------------------------------------
+ var funcName = function(parameters) {
+    // this is a comment
+    line of code;
+    return parameters;
+    console.log(parameters);
+ };
+
+-----------------------------------------------------------------------
+-Define an object / class
+-----------------------------------------------------------------------
+  var objName = {
+    param1: val,
+    param2: val
+  };
+
+  var objName = new Object();
+
+  function ClassName(param1,param2) {
+      this.param1 = param1; //public
+      this.param2 = param2; //public
+      var param3 = value; //private
+  }
+
+-----------------------------------------------------------------------
+-Class Inheritence
+-----------------------------------------------------------------------
+  Class2.prototype = new Class1();

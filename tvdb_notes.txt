@@ -1,0 +1,23 @@
+-----------------------------------------------------------------------
+- TVDB NOTES  ---------------------------------------------------------
+-----------------------------------------------------------------------
+  API Calls
+-----------------------------------------------------------------------
+  Grab the mirrors
+  <mirror path>/api/<api key>/mirrors.xml
+  http://www.thetvdb.com/api/102D37BF66CADAB7/mirrors.xml
+
+  Grab the servers time
+  http://www.thetvdb.com/api/Updates.php?type=none
+
+  Grab the series ID
+  <mirror path>/api/GetSeries.php?seriesname=<series_name>
+  http://www.thetvdb.com/api/GetSeries.php?seriesname=dexter
+
+  Grab all of the episode ID's
+  <mirror path>/api/<api key>/series/<series id>/all/en.xml
+  http://www.thetvdb.com/api/102D37BF66CADAB7/series/79349/all/en.xml (optionally you can replace xml with zip to download the files locally)
+  
+  Grab and Individual Episode's Info
+  <mirror path>/api/<api key>/series/<series id>/default/<season num>/<episode num>/en.xml
+  http://thetvdb.com/api/102D37BF66CADAB7/series/79349/default/1/1/en.xml

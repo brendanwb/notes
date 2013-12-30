@@ -1,0 +1,56 @@
+-----------------------------------------------------------------------
+- RVM NOTES  ----------------------------------------------------------
+-----------------------------------------------------------------------
+- Upgrading RVM
+-----------------------------------------------------------------------
+  $ rvm get latest
+  $ rvm reload
+  $ rvm -v
+
+-----------------------------------------------------------------------
+- Changing versions of Ruby
+-----------------------------------------------------------------------
+  Select the version to use
+  $ rvm 1.9.3 (the just type the version number you want)
+  Upgrading versions
+  $ rvm install ruby-1.9.3-p194
+  $ rvm --default use ruby-1.9.3-p194
+  $ ruby -v
+
+-----------------------------------------------------------------------
+- Using Gemsets
+-----------------------------------------------------------------------
+  Use RVM to create a new gemset for different versions of rails
+  Create a new gemset like this:
+  $ rvm ruby-1.9.3-p0@rails328 --create --default
+
+  Select a gemset to use
+  $ rvm gemset use nameofgemset
+
+  To see a list of gemsets available for the current version of Ruby
+  $ rvm gemset list
+
+  View list of gems for the current gemset
+  $ gem list
+
+-----------------------------------------------------------------------
+- Upgrading Rails
+-----------------------------------------------------------------------  
+  Select or create a new gemset for the install above
+  -gem install rails
+  -rails -v
+
+  To specify a version do
+  -gem install rails -v ">=3.2.8"
+
+-----------------------------------------------------------------------
+- Uninstall a Gem
+-----------------------------------------------------------------------  
+  $ gem uninstall gemname -v version number
+  EXAMPLE
+  $ gem uninstall httparty -v 0.9.0
+
+-----------------------------------------------------------------------
+- Find Installed Gem Folders/Files
+-----------------------------------------------------------------------  
+  $ rvm gemdir

@@ -1,0 +1,37 @@
+-----------------------------------------------------------------------
+- jQuery NOTES  -------------------------------------------------------
+-----------------------------------------------------------------------
+ Loading into Rails App
+-----------------------------------------------------------------------
+  For jquery ui, user the jquery-ui-rails gem
+
+-----------------------------------------------------------------------
+ Draggables
+-----------------------------------------------------------------------
+  $('.class-name').draggable({
+    option1: option,
+    option2: option
+  });
+
+  # Options
+  .addClass( 'class-name' );
+  .draggable( 'enable/disable' );
+  .position( { of: $(this), my: 'left top', at: 'left top' } );
+  .revert( 'true/false' );
+  
+
+-----------------------------------------------------------------------
+ Droppables
+-----------------------------------------------------------------------
+  $('#id-name').droppable({
+    option1: option,
+    option2: option
+  });
+
+  # Options
+  drop: function(event, ui) {
+    function();
+  }
+
+  # Data
+  .data( 'div name' )

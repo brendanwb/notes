@@ -1,0 +1,62 @@
+-----------------------------------------------------------------------
+- GIT NOTES  ----------------------------------------------------------
+-----------------------------------------------------------------------
+-Initialize a git repository
+-----------------------------------------------------------------------
+  $ git init
+  $ git add .
+  $ git commit -m "Initial commit" 
+-----------------------------------------------------------------------
+-Creating a new Branch
+-----------------------------------------------------------------------
+  $ git checkout -b name-of-branch
+
+-----------------------------------------------------------------------
+-Branch Management
+-----------------------------------------------------------------------
+  $ git branch
+    Lists all branches for the repository
+  $ git branch -v
+    Lists each branch with the most recent commit
+  $ git branch --merged
+    Shows which branches are merged into the branch you are currently on
+  $ git branch --no-merged
+    The opposite of merged
+  
+-----------------------------------------------------------------------
+-Finished with Branch
+-----------------------------------------------------------------------
+  $ git add .
+  $ git commit -m "Message"
+  $ git checkout master
+  $ git merge name-of-branch
+  
+-----------------------------------------------------------------------
+-Push Branch to Remote
+-----------------------------------------------------------------------
+  $ git push origin branch-name
+
+-----------------------------------------------------------------------
+-Deleting a branch due to mistakes
+-----------------------------------------------------------------------
+  $ git add .
+  $ git commit -m "Message"
+  $ git checkout master
+  $ git branch -D name-of-branch
+
+-----------------------------------------------------------------------
+-Deleting a branch after merge
+-----------------------------------------------------------------------
+  $ git branch name-of-branch -d
+
+-----------------------------------------------------------------------
+-Deleting a file you no longer want
+-----------------------------------------------------------------------
+  $ git rm path/name_of_file.ext -f
+
+-----------------------------------------------------------------------
+-Change the README
+-----------------------------------------------------------------------
+  $ git mv README.rdoc README.md
+  - change the README.md file
+  $ git commit -a -m "Improve the README"

@@ -1,0 +1,40 @@
+
+-----------------------------------------------------------------------
+-Uploading to Heroku
+-----------------------------------------------------------------------
+  $ git push heroku
+  $ heroku pg:reset HEROKU_POSTGRESQL_COLOR_URL --confirm <name-heroku-gave-to-your-app>
+  Example: For Revoot use:
+  $ heroku pg:reset HEROKU_POSTGRESQL_ONYX_URL --confirm revoot
+  $ heroku run rake db:migrate
+  $ heroku run rake db:populate
+
+-----------------------------------------------------------------------
+-Heroku Commands
+-----------------------------------------------------------------------
+  Run IRB
+  $ heroku run console 
+  Logs
+  $ heroku logs
+
+-----------------------------------------------------------------------
+-Heroku Configuration
+-----------------------------------------------------------------------
+  Rails 3+ Apps
+  Add the following line to your config/application.rb file.  This will
+  prevent an error when pushing the slug to Heroku after assets:precompile
+  is run.
+
+    config.assets.initialize_on_precompile = false
+
+-----------------------------------------------------------------------
+-Running Memcached Locally
+-----------------------------------------------------------------------
+  To have launchd start memcached at login:
+    ln -sfv /usr/local/opt/memcached/*.plist ~/Library/LaunchAgents
+  Then to load memcached now:
+      launchctl load ~/Library/LaunchAgents/homebrew.mxcl.memcached.plist
+  Or, if you don't want/need launchctl, you can just run:
+      /usr/local/opt/memcached/bin/memcached
+  ==> Summary
+  🍺  /usr/local/Cellar/memcached/1.4.15: 10 files, 176K, built in 16 seconds

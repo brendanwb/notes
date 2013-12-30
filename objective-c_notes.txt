@@ -1,0 +1,147 @@
+------------------------------------------------------------------------------------------
+- OBJECTIVE-C NOTES  --------------------------------------------------
+------------------------------------------------------------------------------------------
+- Create a String
+------------------------------------------------------------------------------------------
+  NSString *myString = @"Hello, world!";
+------------------------------------------------------------------------------------------
+- Create an Array
+------------------------------------------------------------------------------------------
+  NSArray *predictionArray = [[NSArray alloc] initWithObjects:@"It is certain",
+                               @"It is decidedly so",
+                               @"All signs say YES",@"The stars are not aligned",
+                               @"My reply is no",
+                               @"It is doubtful",
+                               @"Better not tell you now",
+                               @"Concentrate and ask again",
+                               @"Unable to answer now", nil];
+
+Access Elements of the array -------------------------------------------------------------
+  [predictionArray objectAtIndex:5];
+------------------------------------------------------------------------------------------
+- NSDictionary
+------------------------------------------------------------------------------------------
+  - NSDictionary is similar to a hash in Ruby, it is a key/value pair match
+  - When creating a dictionary, the order is value and then key like below
+
+  NSDictionary *show = [NSDictionary dictionaryWithObjectsAndKeys:@"Breaking Bad",@"title",
+                          @"2013-07-11",@"first_aired",@"Netflix",@"network", nil];
+------------------------------------------------------------------------------------------
+- Add Navigation Controller
+------------------------------------------------------------------------------------------  
+  - In Xcode, Select the controller to add it to
+  - Go to Editor -> Embed In -> Navigation Controller
+------------------------------------------------------------------------------------------
+- Create a New Class
+------------------------------------------------------------------------------------------                          
+  - Make the class a subclass of NSObject
+  - Use the following syntax as the setter and getter methods for the implementation file
+    @property (nonautomic, strong) NSString *variableName;
+
+------------------------------------------------------------------------------------------
+- Mutable Objects
+------------------------------------------------------------------------------------------
+  - Mutable objects can be modified later
+  - NSMutableArray *titles = [NSMutableArray arrayWithCapacity:0];
+------------------------------------------------------------------------------------------
+- Method Calling
+------------------------------------------------------------------------------------------
+  [] around code indicates you are calling a method.  If a method is read-only, you should
+  use this instead of dot notation.  You can determine what methods are read-only in the
+  source documentation.
+  ex:
+  [self.shows count]
+------------------------------------------------------------------------------------------
+- Protocols
+------------------------------------------------------------------------------------------
+  Protocol defines methods that can be implemented by any class
+  - Delegates & Datasources are both protocols
+
+  |UIViewController|
+         |                 > |UITableViewDatasource| - Determines what to display
+         |                /
+         V               /
+  |UITableViewController| --- Subclass of UIViewController Property - implements protocols
+         |               \                                           that ask what & how
+         |                \
+         V                 > |UITableViewDelegate| - Defines the methods to configure the
+  |UITableView * tableView|                          tableView ie: height of rows, sections
+                                                     headers & footers, what happens when
+                                                     it's tapped.
+------------------------------------------------------------------------------------------
+- Model View Controller
+------------------------------------------------------------------------------------------
+  - UIApplication  - instance and can only be one per app.  We can hook into it using the
+                     ApplicationDelegate.  This makes sure the app has a window.
+  - UIWindow       - coordinates the presentation of one or more views on screen.
+  - ViewController - manages the presentation of your apps content on a screen.  It 
+                     manages a single view and its collection of subviews
+
+  _______________________________________       ______________________
+ |             |Controller|              |     |       |View|         |
+ | UIApplication --------> AppDelegate ----------->   UIWindow        |
+ |      >                       |        |     |                      |
+ |     ( )                      |        |     |                      |
+ |      <                       V        |     |                      |
+ |  Event Loop           ViewController ----------> Views & UIObjects |
+ |_______________________________________|     |______________________|
+
+------------------------------------------------------------------------------------------
+- Header & Implementation Files
+------------------------------------------------------------------------------------------
+  - Declare properties or methods in the header file, then implement them
+  - Anytime you use another class in an implementation, you must import the header file
+  - () means you are defining private instances or methods
+------------------------------------------------------------------------------------------
+- ViewControllers
+------------------------------------------------------------------------------------------
+  - In a storyboard, a ViewController is known as a scene and transitions are segues
+  - Every UIViewController has a method called PrepareforSegue
+  - Segues - sourceViewController is the ViewController that triggered the segue
+             destinationViewController is where it is headed
+             You can have multiple segues between ViewControllers
+             The way to determine the segue is to use the IDENTIFIER
+------------------------------------------------------------------------------------------
+- NavigationControllers
+------------------------------------------------------------------------------------------
+  - NavigationControllers manage presentation of hierarchical data in an app
+  - Elements include: Navigation Bar - with Back Button and Title
+                      Custom Content - View
+                      Toolbar (optional) - default is hidden
+  - UINavigationController - RootViewController
+    Navigation is a stack - ViewControllers(NSArray)
+                            topViewController & visibleViewController
+  - Add either by dragging from toolbar, or Editor->Embed In->Navigation Controller
+  - Hold down Ctrl from the cell or view controller and drag to the view controller you
+    want to link it to.
+  - When you add a Segue, make sure to give it an Identifier to use programatically
+------------------------------------------------------------------------------------------
+- Pulling data from the web
+------------------------------------------------------------------------------------------
+  - Create a URL to pull the data from using NSURL
+  - Grab the data from the url and place it into an NSData object
+  - Parse from the NSData object into something usable by NSDictionary
+------------------------------------------------------------------------------------------
+- Misc
+------------------------------------------------------------------------------------------
+  dequeueReusableCellWithIdentifier - each cell has an identifier you can specify in the
+                                      storyboard in the Attribute inspector
+  indexPath - an object with two main properties: row & section.  
+              ie: selforRowatIndexPath
+  atomic - means you are working in a multithreaded environment
+
+  strong - parent to child relationship
+
+  weak   - child to parent relationship
+
+  @synthesize - replaces the setter and getter methods
+
+  Designated Initializer - Primary responsibility for initializing new instances of a class
+                         - In most cases this is the method init
+  Convenience Constructors - Performs object allocation & initialization in one step and 
+                             returns an instance variable
+  id - a general purpose data type that can create an instance of any class
+
+  Error Checking - Breakpoint Navigator -> Add Exception Breakpoint
+
+  &error - when you pass an ampersand, it can be modified by the method

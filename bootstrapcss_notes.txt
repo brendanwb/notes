@@ -1,0 +1,20 @@
+-----------------------------------------------------------------------
+- BOOTSTRAP CSS NOTES  ------------------------------------------------
+-----------------------------------------------------------------------
+- Install in Rails
+-----------------------------------------------------------------------
+  Add to the Gemfile below rails
+  gem 'bootstrap-sass', '2.0.4'
+
+  Run bundle install
+
+  Add new css file into 
+  app/assets/stylesheets/custom.css.scss
+
+  Place @import "bootstrap"; at the top of the custom.css.scss file
+
+-----------------------------------------------------------------------
+- Grid System
+-----------------------------------------------------------------------
+  The system has 12 sections each can be accessed with a span
+  - <span class="span4"></span> <span class="span8"></span>

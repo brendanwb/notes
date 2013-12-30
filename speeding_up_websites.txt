@@ -1,0 +1,42 @@
+Speeding Up Websites
+HTML Navigation Timing
+WebPageTest.org
+_______________________________________________________________
+GZIP___________________________________________________________
+_______________________________________________________________
+Change the config.ru file in Rails
+
+require ::File.expand_path('../config/environment',  __FILE__)
+use Rack::Deflater #add this line
+run RevootApp::Application
+
+_______________________________________________________________
+Reducing Images________________________________________________
+_______________________________________________________________
+Compress Images and strip out the meta data
+use carrierwave-processing gem, used for uploaded images
+
+ImageOptim
+This will turn all your images into lossless images using open
+source tools to find the best size
+
+Tip: Combine all images into one file, use css to position them
+around the page.  Use a tool like Compass to do so automatically
+or use a font library to store the small images.
+
+_______________________________________________________________
+Javascript     ________________________________________________
+_______________________________________________________________
+Move your javascript file call to the bottom of the page
+
+In application.html.erb asynchronously load javascript
+<script><!-- inline head.js script loader --></script>
+<script>head.js("/assets/application.js");</script>
+** using head.js library, include the script on the page
+split javascript file into 2 groups: commonly edited, not
+commonly edited.  vendor.js (jquery files) and application.js
+
+_______________________________________________________________
+SPDY           ________________________________________________
+_______________________________________________________________
+SSL has latency, SPDY helps with that

@@ -1,0 +1,45 @@
+-----------------------------------------------------------------------
+- RSPEC NOTES  --------------------------------------------------------
+-----------------------------------------------------------------------
+- Installing Rspec in Rails
+-----------------------------------------------------------------------
+  $ rails generate rspec:install
+
+-----------------------------------------------------------------------
+- Generate Rspec Tests for Rails
+-----------------------------------------------------------------------
+  $ rails generate integration_test name
+  
+-----------------------------------------------------------------------
+- Running Rspec tests in Rails
+-----------------------------------------------------------------------
+  We use bundle exec before the code to make sure RSpec is using the same gems as your application
+
+  This will run all of the tests for the Rails application
+  $ bundle exec rspec spec/
+
+  This will run the tests for a specific file in the models folder
+  $ bundle exec rspec spec/models/tv_show_spec.rb
+
+-----------------------------------------------------------------------
+- Rspec setup
+-----------------------------------------------------------------------
+  Place the following code into your environments/test.rb file to speed up factories
+
+  # Speed up tests by lowering BCrypt's cost function.
+  require 'bcrypt'
+  silence_warnings do
+    BCrypt::Engine::DEFAULT_COST = BCrypt::Engine::MIN_COST
+  end
+
+-----------------------------------------------------------------------
+- Rspec Mailer Tests
+-----------------------------------------------------------------------
+  Add this to the bottom of your environment/test.rb file
+
+  # Other config items omitted.
+  config.action_mailer.default_url_options = { :host => "localhost:3000" }
+
+  Add a field for your remember token to the User factory
+
+  Create a user variable from the User factory before the mail variable
