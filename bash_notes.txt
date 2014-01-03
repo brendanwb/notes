@@ -1,0 +1,7 @@
+BASH / GIT config
+
+How to modify .bash_profile / .bashrc files
+  subl ~/.bash_profile
+  subl ~/.bashrc
+
+How to add auto completion to bash for git
