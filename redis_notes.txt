@@ -8,3 +8,5 @@
 - Stop Redis Server
 -----------------------------------------------------------------------
   redis-cli shutdown
+
+  bundle exec sidekiq
