@@ -61,6 +61,11 @@
   - change the README.md file
   $ git commit -a -m "Improve the README"
 
+-----------------------------------------------------------------------
+-View the time of commits, merges and swithing from branch to branch
+-----------------------------------------------------------------------
+  $ git reflog --date=local
+  
 
 Git Pull Request Steps in a Team
 
