@@ -27,6 +27,14 @@
  -Random Numbers
   Below will give you a random number between 0 and 10
   Math.floor(Math.random() * 10 + 1)
+
+-----------------------------------------------------------------------
+-Create a new date for testing
+-----------------------------------------------------------------------
+  var someDate = new Date();
+  var numberOfDaysToAdd = 6;
+  someDate.setDate(someDate.getDate() + numberOfDaysToAdd);
+
 -----------------------------------------------------------------------
 -If/Else syntax
 -----------------------------------------------------------------------

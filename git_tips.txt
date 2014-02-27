@@ -65,7 +65,24 @@
 -View the time of commits, merges and swithing from branch to branch
 -----------------------------------------------------------------------
   $ git reflog --date=local
+
+-----------------------------------------------------------------------
+-Undo the last commit
+-----------------------------------------------------------------------
+  $ git reset --soft 'HEAD^'  
   
+-----------------------------------------------------------------------
+-Recreate a deleted branch
+-----------------------------------------------------------------------
+  $ git reflog
+  - Find the sha key in the log
+  $ git checkout [sha]
+  $ git checkout -b <branch-name>
+
+-----------------------------------------------------------------------
+-Track upstream changes to a branch
+-----------------------------------------------------------------------
+  $ git branch -u <upstream (typically origin)>/<branch-name>
 
 Git Pull Request Steps in a Team
 
