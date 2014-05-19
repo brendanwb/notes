@@ -1,0 +1,2 @@
+Screen Capture
+Command+Ctrl+Shift+4 - This will give you a cursor to select the area you want to capture.  Once captured, it is copied to your clipboard to paste into another program.
