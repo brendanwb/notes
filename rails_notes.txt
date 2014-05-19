@@ -13,7 +13,7 @@
   Initialize the git repository
     $ git init
     $ git add .
-    $ git commit -m "Initial commit" 
+    $ git commit -m "Initial commit"
 
 -----------------------------------------------------------------------
 - Generate a Controller
@@ -72,7 +72,7 @@
   -episode = Episode.find_by_id(episode) - grab the show from the db
   -user.episode_trackers.create(episode_id: episode.id,watched:1) - create a show tracker the takes the user.id and the tv_show.id and determines watched as true or false
   ----------------------------------
-  Change the watched status  
+  Change the watched status
   ----------------------------------
   -user = User.find_by_id(user_id)  - grab the current user from the db
   -episode = Episode.find_by_id(episode_id) - grab the show from the db
@@ -126,8 +126,12 @@
   use flash.now instead of flash so the render counts as the first view and the
   message will disapper after the next page click.
 
-
-
+-----------------------------------------------------------------------
+- Rake db Update data
+-----------------------------------------------------------------------
+  $ rake pgbackups:download
+  $ rake pgbackups:import[wellbe_dev,postgres]
+  $ rake pgbackups:update_assets
 
 -----------------------------------------------------------------------
 - Add User Confirmation Steps
@@ -142,7 +146,7 @@
   it { should respond_to(:confirmation_token_sent) }
   it { should respond_to(:confirmed) }
 
-  As you can see from the tests, we will be adding three new fields.  Lets create a 
+  As you can see from the tests, we will be adding three new fields.  Lets create a
   new migration to add them and get our tests to pass.
 
   rails g migration add_confirmation_to_users confirmation_token:string confirmation_token_sent:datetime confirmed:boolean
@@ -251,10 +255,10 @@
     end
   end
 
-  This creates a new user, if it is saved meaning all the fields were filled in 
+  This creates a new user, if it is saved meaning all the fields were filled in
   properly, call the send_confirmation_email on @user variable, which updates
   the confirmation_token, and confirmation_token_sent fields.  We then save the
-  user again for those updates, sign_in the user, display a success message, and 
+  user again for those updates, sign_in the user, display a success message, and
   redirect them to their new profile page.
 
   The final piece of the puzzle is updating the users account when the recieve their
@@ -278,12 +282,12 @@
 
   With the update, we are now able to accept two seperate urls.  First, we check to
   see if the url contains a confirmation token.  If so, we make sure that token
-  exists in our model.  If it does, the user must have used their confirmation 
-  email to confirm their account, so we set the user variable based on the 
-  confirmation token as the id in the params.  We activate the user, which in the 
+  exists in our model.  If it does, the user must have used their confirmation
+  email to confirm their account, so we set the user variable based on the
+  confirmation token as the id in the params.  We activate the user, which in the
   last step we will create that method in the User model, and we sign the user
   in to their account with a success message that their account has been confirmed.
- 
+
   Last, we need to activate our user in the Model.  To do this, we add the method
   activate_user in the User Model as follows.
 
