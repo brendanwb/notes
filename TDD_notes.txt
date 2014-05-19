@@ -1,6 +1,19 @@
 -----------------------------------------------------------------------
 - TDD NOTES  ----------------------------------------------------------
 -----------------------------------------------------------------------
-- 
+- Rails
 -----------------------------------------------------------------------
 require 'factory_girl_rails'
+
+-----------------------------------------------------------------------
+- Jasmine
+-----------------------------------------------------------------------
+  -If jasmine-rails is installed, you can run test from command line
+  -Call all tests
+  $ RAILS_ENV=test bundle exec rake spec:javascript
+
+  -Call one file
+  $ RAILS_ENV=test bundle exec rake spec:javascript SPEC=SpotlightController
+  
+  -Call a set of tests in a file
+  $ RAILS_ENV=test bundle exec rake spec:javascript SPEC=SpotlightController%20secondaryMessage

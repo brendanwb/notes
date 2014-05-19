@@ -114,9 +114,9 @@ class StringTest < Test::Unit::TestCase
   end
 
   def test_chop
-    # Returns a new String with the last character removed. 
-    # If the string ends with \r\n, both characters are removed. 
-    # Applying chop to an empty string returns an empty string. 
+    # Returns a new String with the last character removed.
+    # If the string ends with \r\n, both characters are removed.
+    # Applying chop to an empty string returns an empty string.
     # String#chomp is often a safer alternative, as it leaves the string unchanged if it doesn’t end in a record separator.
     assert_equal("string", "string\r\n".chop)
     assert_equal("string\n", "string\n\r".chop)
@@ -240,7 +240,7 @@ class StringTest < Test::Unit::TestCase
     # removes leading whitespace
     assert_equal("hello    ", "    hello    ".lstrip)
     assert_equal("hello", "hello".lstrip)
-  end  
+  end
 
   def test_match
     assert_equal("ll", 'hello'.match('(.)\1')[0])
@@ -558,9 +558,9 @@ class ArrayTest < Test::Unit::TestCase
   end
 
   def test_array_assoc
-    # Searches through an array whose elements are also arrays comparing obj with 
-    # the first element of each contained array using obj.==. Returns the first 
-    # contained array that matches (that is, the first associated array), or nil if 
+    # Searches through an array whose elements are also arrays comparing obj with
+    # the first element of each contained array using obj.==. Returns the first
+    # contained array that matches (that is, the first associated array), or nil if
     # no match is found
 
     s1 = [ "colors", "red", "blue", "green" ]
@@ -573,9 +573,9 @@ class ArrayTest < Test::Unit::TestCase
 
   def test_array_at
     a = [ "a", "b", "c", "d", "e" ]
-    #  See also Array#[]. (Array#at is slightly faster than Array#[], 
+    #  See also Array#[]. (Array#at is slightly faster than Array#[],
     # as it does not accept ranges and so on.)
-    
+
     assert_equal("b", a.at(1))
     assert_equal("d", a.at(-2))
 
@@ -625,8 +625,8 @@ class ArrayTest < Test::Unit::TestCase
   end
 
   def test_array_delete_at
-    # Deletes the element at the specified index, returning that element, 
-    # or nil if the index is out of range. 
+    # Deletes the element at the specified index, returning that element,
+    # or nil if the index is out of range.
     a = %w( ant bat cat dog )
     assert_equal("cat", a.delete_at(2))
     assert_equal(nil, a.delete_at(99))
@@ -645,7 +645,7 @@ class ArrayTest < Test::Unit::TestCase
   end
 
   def test_array_drop_while
-    # Drops elements up to, but not including, the first element for which the 
+    # Drops elements up to, but not including, the first element for which the
     # block returns nil or false and returns an array containing the remaining elements.
     a = [1, 2, 3, 4, 5, 0]
     assert_equal([3, 4, 5, 0], a.drop_while {|i| i < 3})
@@ -659,7 +659,7 @@ class ArrayTest < Test::Unit::TestCase
 
   def test_array_each_index
     # Same as Array#each, but passes the index of the element instead of the element itself.
-    a = %w(a b c)    
+    a = %w(a b c)
     assert_equal(["a", "b", "c"], a.each_index {|x| x})
   end
 
@@ -682,7 +682,7 @@ class ArrayTest < Test::Unit::TestCase
   end
 
   def test_array_fill
-    # The last two forms fill the array with the value of the block. 
+    # The last two forms fill the array with the value of the block.
     # The block is passed the absolute index of each element to be filled.
     a = %w(a b c d)
     assert_equal(["x", "x", "x", "x"], a.fill("x"))
@@ -1083,12 +1083,12 @@ class AssertTest < Test::Unit::TestCase
 end
 
 class RegexTest < Test::Unit::TestCase
-  
+
   def test_replace_apostrophe
     a = '"Johnny"'
     assert_equal('Johnny', a.gsub(/["]/,""))
   end
-  
+
 end
 
 class EnumeratorTest < Test::Unit::TestCase
@@ -1098,7 +1098,7 @@ class EnumeratorTest < Test::Unit::TestCase
     h = { dog: "canine", fox: "vulpine"}
     enum_a = a.to_enum
     enum_h = h.to_enum
-    
+
     assert_equal(1, enum_a.next)
     assert_equal([:dog, "canine"], enum_h.next)
     assert_equal(3, enum_a.next)
@@ -1108,13 +1108,13 @@ class EnumeratorTest < Test::Unit::TestCase
 end
 
 class MethodTest < Test::Unit::TestCase
-  
+
   def test_splat
     # splat is when you place a * in before an argument in a method, indicating there may be more than one arguement
     # def method(arg,*args)
     #   args.each{|a| "#{arg} + #{a}"}
     # end
-    
+
   end
 
 end
