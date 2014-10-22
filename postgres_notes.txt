@@ -1,0 +1,28 @@
+------------------------------------------------------------------------------------------
+- Postgres Notes -------------------------------------------------------------------------
+------------------------------------------------------------------------------------------
+- Fresh install
+------------------------------------------------------------------------------------------
+$ brew install postgresql
+NOTE: if you need an older version run $brew search postgresql
+
+- Initiate the postgres db by running
+
+$ initdb /usr/local/var/postgres -E utf8
+
+Create a new user named postgres
+
+$ createuser -s -P postgres
+
+- Install the lunchy gem for starting and stopping the postgres server
+
+$ gem install lunchy
+
+- Create a new launch directory if one doesn't already exist
+$ mkdir -p ~/Library/LaunchAgents
+$ cp /usr/local/Cellar/postgresql/9.2.1/homebrew.mxcl.postgresql.plist ~/Library/LaunchAgents/
+
+- To start and stop postgres with lunchy run
+$ lunchy start postgres
+and
+$ lunchy stop postgres
