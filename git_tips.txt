@@ -84,22 +84,48 @@
 -----------------------------------------------------------------------
   $ git branch -u <upstream (typically origin)>/<branch-name>
 
-Git Pull Request Steps in a Team
+-----------------------------------------------------------------------
+-Git Pull Request Steps in a Team
+-----------------------------------------------------------------------
+  git push origin implementor-clean-up (the name of the branch)
+  git checkout develop (name of the branch you want to merge with)
+  git fetch (make sure you have the latest updates in the branch)
+  git merge origin/develop (merge your changes with the main branch)
 
-git push origin implementor-clean-up (the name of the branch)
-git checkout develop (name of the branch you want to merge with)
-git fetch (make sure you have the latest updates in the branch)
-git merge origin/develop (merge your changes with the main branch)
+  MAKE SURE YOU SELECT THE CORRECT BRANCH TO COMPARE YOUR NEW BRANCH TO
+  ON GITHUB
 
-MAKE SURE YOU SELECT THE CORRECT BRANCH TO COMPARE YOUR NEW BRANCH TO ON GITHUB
+  For code review, commit and push your code, then send the link to the
+  commit
 
-For code review, commit and push your code, then send the link to the commit
+  To view all branches including the ones you haven't worked on
+  git branch -a
 
-To view all branches including the ones you haven't worked on
-git branch -a
+  What i found useful was to look at "git reflog" and look for the last
+  commit that i did in master. Then do git reset --hard <commit_sha>
 
-What i found useful was to look at "git reflog" and look for the last commit that i did in master. Then do git reset --hard <commit_sha>
+-----------------------------------------------------------------------
+-Git Pivotal Tracker Integration Workflow
+-----------------------------------------------------------------------
+  MAKE SURE TO HAVE THE FOLLOWING INSTALLED:
+  Git Pivotal Gem
+  https://github.com/trydionel/git-pivotal
 
+  Hub (I used Homebrew)
+  https://hub.github.com/
+
+-----------------------------------------------------------------------
+  Create a new feature branch
+  $ git feature
+
+  Do your work like you normally would
+
+  commit your changes like normal
+
+  push your changes like normal
+
+  Create a pull request with hub
+  $ git pull-request
 -----------------------------------------------------------------------
 -These steps will only be necessary if you need to update your feature
  branch with the latest changes from develop (most of the time this

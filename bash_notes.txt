@@ -4,4 +4,11 @@ How to modify .bash_profile / .bashrc files
   subl ~/.bash_profile
   subl ~/.bashrc
 
-How to add auto completion to bash for git
+Add default editor to open files in shell
+  export EDITOR=vim
+
+Open gems for debugging
+  bundle open gem_name
+
+Debugging Tips
+  add raise object.inspect
