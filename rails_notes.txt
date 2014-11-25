@@ -117,6 +117,14 @@
   $ rake db:migrate VERSION=0
 
 -----------------------------------------------------------------------
+- Rake db Update data
+-----------------------------------------------------------------------
+  $ rake pgbackups:download
+  $ rake pgbackups:import[wellbe_dev,postgres]
+  $ rake pgbackups:update_assets
+
+
+-----------------------------------------------------------------------
 - View Render Methods
 -----------------------------------------------------------------------
   If you want to render a partial with a controller name from a folder other than view/controller_name use the convention below
@@ -127,11 +135,17 @@
   message will disapper after the next page click.
 
 -----------------------------------------------------------------------
-- Rake db Update data
+- Debugging Methods
 -----------------------------------------------------------------------
-  $ rake pgbackups:download
-  $ rake pgbackups:import[wellbe_dev,postgres]
-  $ rake pgbackups:update_assets
+  If you want to add debugging calls to the rails logs, add:
+  Rails.logger.debug <code to output>
+
+  Raise exceptions in models to trace errors
+  raise model.errors.inspect
+  ex:
+  unless user.save
+    raise user.errors.inspect
+  end
 
 -----------------------------------------------------------------------
 - Add User Confirmation Steps
